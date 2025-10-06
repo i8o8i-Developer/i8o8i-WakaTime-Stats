@@ -117,7 +117,7 @@ The `UPDATED_DATE_FORMAT` Flag Can Be Set To Put The Updated Date Into A Format.
 
 The `SHOW_LINES_OF_CODE` Flag Can Be Set To `True` To Show The Number Of Lines Of Code Writen Till Date.
 
-![Lines Of Code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
+![Lines Of Code](https://img.shields.io/badge/From%20Hello%20World%20I've%20Written-1.3%20Million%20Lines%20of%20code-blue)
 
 The `SHOW_TOTAL_CODE_TIME` Flag Can Be Set To `False` To Hide *Code Time*.
 
