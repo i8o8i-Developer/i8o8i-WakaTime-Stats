@@ -281,8 +281,8 @@ This Project Is Licensed Under The MIT License. See The [LICENSE](LICENSE) File 
 ### This Project Needs A **Star**  From You .
 
 
-## Stargazers Over Time
+## StarGazers Over Time
 
-[![Stargazers over time](https://starchart.cc/i8o8i-Developer/i8o8i-WakaTime-Stats.svg)](https://starchart.cc/i8o8i-Developer/i8o8i-WakaTime-Stats)
+[![StarGazers Over Time](https://starchart.cc/i8o8i-Developer/i8o8i-WakaTime-Stats.svg)](https://starchart.cc/i8o8i-Developer/i8o8i-WakaTime-Stats)
 
 Powered By I8o8i Workstation !!
