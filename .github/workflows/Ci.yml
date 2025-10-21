@@ -78,7 +78,7 @@ jobs:
           INPUT_COMMIT_BY_ME: True
           INPUT_DEBUG_LOGGING: True # Not for prod
           DEBUG_RUN: True           # Not for prod
-        run: python3 sources/Main.py
+        run: python3 Sources/Main.py
 
       - name: Save Branch Name Without Slashes 📛
         if: ${{ github.ref != 'refs/heads/main' }}

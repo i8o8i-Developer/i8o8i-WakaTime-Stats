@@ -75,7 +75,7 @@ jobs:
     name: Update Readme With Metrics
     runs-on: ubuntu-latest
     steps:
-      - uses: i8o8i-Developer/i8o8i-WakaTime-Stats@master
+      - uses: i8o8i-Developer/i8o8i-WakaTime-Stats@main
         with:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -87,7 +87,7 @@ jobs:
 If You Want To Add The Other Info To Your Stats, You Can Add Multiple `FLAGS` In Your Workflow File. By Default All Flags Are Enabled (Except The Lines Of Code Flag Due To The Heavy Operation Performed)
 
 ```yml
-- uses: i8o8i-Developer/i8o8i-WakaTime-Stats@master
+- uses: i8o8i-Developer/i8o8i-WakaTime-Stats@main
   with:
       WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
       GH_TOKEN: ${{ secrets.GH_TOKEN }}

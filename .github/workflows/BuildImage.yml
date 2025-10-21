@@ -23,14 +23,14 @@ jobs:
       - name: Log in to DockerHub 🚪
         uses: docker/login-action@v3
         with:
-          username: i8o8i-developer
+          username: i8o8i
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Extract Docker Metadata 🏷️
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: i8o8i-developer/i8o8i-wakatime-stats
+          images: i8o8i/i8o8i-wakatime-stats
           tags: |
             type=ref,event=branch
             type=ref,event=pr

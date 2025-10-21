@@ -17,4 +17,4 @@ github_actions:
 
 python:
   - changed-files:
-    - any-glob-to-any-file: ["sources/**", "!sources/translation.json"]
+    - any-glob-to-any-file: ["Sources/**", "!Sources/translation.json"]
