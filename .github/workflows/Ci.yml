@@ -27,7 +27,7 @@ jobs:
           cache: 'pip'
 
       - name: Install Dependencies 📥
-        run: pip install -r Requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Format Code with Black 🖤
         run: |
@@ -81,7 +81,7 @@ jobs:
         run: python3 sources/Main.py
 
       - name: Save Branch Name Without Slashes 📛
-        if: ${{ github.ref != 'refs/heads/master' }}
+        if: ${{ github.ref != 'refs/heads/main' }}
         env:
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         run: |
@@ -91,7 +91,7 @@ jobs:
 
       - name: Upload Artifact 📦
         uses: actions/upload-artifact@v4
-        if: ${{ github.ref != 'refs/heads/master' }}
+        if: ${{ github.ref != 'refs/heads/main' }}
         with:
           name: ${{ format('i8o8i-wakatime-stats-preview-{0}', env.BRANCH_NAME) }}
           path: assets
