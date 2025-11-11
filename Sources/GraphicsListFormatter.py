@@ -12,9 +12,9 @@ WEEK_DAY_NAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Satur
 
 class Symbol(Enum):
     # Futuristic / High-Contrast Symbol Sets. Each Version Is A (Done, Empty) Pair.
-    VERSION_1 = "█", "░"   # Solid Block / Light Shade (High Contrast)
-    VERSION_2 = "▮", "▯"   # Modern Rectangular Blocks
-    VERSION_3 = "◆", "◇"   # Geometric Diamond Filled / Hollow
+    VERSION_1 = "█", "░"  # Solid Block / Light Shade (High Contrast)
+    VERSION_2 = "▮", "▯"  # Modern Rectangular Blocks
+    VERSION_3 = "◆", "◇"  # Geometric Diamond Filled / Hollow
 
     @staticmethod
     def GetSymbols(version: int) -> Tuple[str, str]:
