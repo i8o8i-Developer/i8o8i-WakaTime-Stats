@@ -11,9 +11,10 @@ WEEK_DAY_NAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Satur
 
 
 class Symbol(Enum):
-    VERSION_1 = "▰", "▱"
-    VERSION_2 = "🞔", "🞎"
-    VERSION_3 = "⬛", "⬜"
+    # Futuristic / High-Contrast Symbol Sets. Each Version Is A (Done, Empty) Pair.
+    VERSION_1 = "█", "░"   # Solid Block / Light Shade (High Contrast)
+    VERSION_2 = "▮", "▯"   # Modern Rectangular Blocks
+    VERSION_3 = "◆", "◇"   # Geometric Diamond Filled / Hollow
 
     @staticmethod
     def GetSymbols(version: int) -> Tuple[str, str]:
@@ -34,8 +35,9 @@ def MakeList(
     top_num: int = 5,
     sort: bool = True,
 ) -> str:
-    MAX_NAME_WIDTH = 22
-    MAX_TEXT_WIDTH = 18
+    # Increase Widths And Use Explicit Left-Alignment So Columns Line Up Better
+    MAX_NAME_WIDTH = 30
+    MAX_TEXT_WIDTH = 22
 
     if data is not None:
         if names is None:
@@ -51,10 +53,16 @@ def MakeList(
     data = list(zip(names, texts, percents))
     top_data = sorted(data[:top_num], key=lambda record: record[2], reverse=True) if sort else data[:top_num]
 
-    data_list = [
-        f"{Truncate(n.title(), MAX_NAME_WIDTH):{MAX_NAME_WIDTH}}" f"{Truncate(t.title(), MAX_TEXT_WIDTH):{MAX_TEXT_WIDTH}}" f"{MakeGraph(p)}   {p:05.2f} %"
-        for n, t, p in top_data
-    ]
+    # Build Each Row With Explicit Left Alignment For Name and Text Columns So That
+    # Project Name, Time/Text, Graph and Percent Columns Stay Aligned Across Rows.
+    data_list = []
+    for n, t, p in top_data:
+        name = Truncate(n.title(), MAX_NAME_WIDTH)
+        text = Truncate(t.title(), MAX_TEXT_WIDTH)
+        graph = MakeGraph(p)
+        # Left-Align Name and Text Columns, Add a Single Space Separator for Readability
+        row = f"{name:<{MAX_NAME_WIDTH}} {text:<{MAX_TEXT_WIDTH}} {graph}   {p:05.2f} %"
+        data_list.append(row)
     return "\n".join(data_list)
 
 

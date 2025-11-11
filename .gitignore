@@ -1,0 +1,83 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python test / coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# mypy
+.mypy_cache/
+
+# pyenv
+.python-version
+
+# env files and secrets
+.env
+.env.*
+secrets.json
+
+# Jupyter
+.ipynb_checkpoints/
+
+# logs
+*.log
+
+# compiled files
+*.pyc
+*.pyo
+
+# wheel
+*.whl
+
+# local artifacts / temp files
+test_output.txt
+*.tmp
+
+# caches
+.cache/
+.ropeproject/
+
+# OneDrive temp files
+~$*
+
+# Ignore virtual environment activation scripts on Windows
+.venv/Scripts/
+
+# Ignore local IDE run files
+.vscode/launch.json
+.vscode/tasks.json
