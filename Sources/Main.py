@@ -54,21 +54,21 @@ async def GetShortGithubInfo() -> str:
     stats = f"**🐱 {GHM.USER.login} GitHub Data** \n\n"
 
     if GHM.USER.disk_usage is None:
-        stats += "> 📦 Used In GitHub's Storage: ? \n > \n"
+        stats += "> 📦 Used In GitHub's Storage : ? \n > \n"
         DBM.p("Missing GitHub PAT With User Scope.")
     else:
-        stats += f"> 📦 Used In GitHub's Storage: {naturalsize(GHM.USER.disk_usage)} \n > \n"
+        stats += f"> 📦 Used In GitHub's Storage : {naturalsize(GHM.USER.disk_usage)} \n > \n"
 
     data = await DM.GetRemoteJson("github_stats")
     if data and data["years"]:
         year_info = data["years"][0]
-        stats += f"> 🏆 Contributions Made In The Year: {intcomma(year_info['total'])} in {year_info['year']} \n > \n"
+        stats += f"> 🏆 Contributions Made In The Year : {intcomma(year_info['total'])} In {year_info['year']} \n > \n"
 
     hire_status = "i8o8i Solutions Is Open to Hire" if GHM.USER.hireable else "i8o8i Solutions Is Not Open to Hire"
     stats += f"> {'💼' if GHM.USER.hireable else '🚫'} {hire_status} \n > \n"
-    stats += f"> 📜 Public Repositories: {GHM.USER.public_repos} \n > \n"
+    stats += f"> 📜 Public Repositories : {GHM.USER.public_repos} \n > \n"
     private = GHM.USER.owned_private_repos or 0
-    stats += f"> 🔑 Private Repositories: {private} \n > \n"
+    stats += f"> 🔑 Private Repositories : {private} \n > \n"
 
     DBM.g("Short GitHub Info Added!")
     return stats
@@ -106,8 +106,20 @@ async def GetStats() -> str:
 
     if EM.SHOW_LINES_OF_CODE:
         total_loc = sum(yearly_data[y][q][d]["add"] for y in yearly_data for q in yearly_data[y] for d in yearly_data[y][q])
-        data_str = f"{intword(total_loc)} Lines of code"
-        stats += f"![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I%20Have%20Written-{quote(data_str)}-blue)\n\n"
+        # Convert The Humanized Intword Output (e.g. "75.5 Thousand") Into PascalCase Words
+        # So The Badge Reads Like: "75.5 Thousand Lines Of Code" (Words In PascalCase).
+        raw = intword(total_loc)  # e.g. "75.5 thousand"
+        parts = raw.split()
+        if len(parts) > 1:
+            number = parts[0]
+            unit_words = parts[1:]
+            titled_unit = " ".join(pw.replace("-", " ").title() for pw in unit_words)
+            data_str = f"{number} {titled_unit} Lines Of Code"
+        else:
+            # Fallback If Intword Returned a Single Token
+            data_str = f"{raw} Lines Of Code"
+
+        stats += f"![Lines Of Code](https://img.shields.io/badge/From%20Hello%20World%20I%20Have%20Written-{quote(data_str)}-blue)\n\n"
 
     if EM.SHOW_SHORT_INFO:
         stats += await GetShortGithubInfo()
