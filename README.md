@@ -1,4 +1,4 @@
-# I8o8i Waka Time Stats
+# i8o8i Waka Time Stats
 
 <p align="center">
    Are You An Early 🐤 Or A Night 🦉?
