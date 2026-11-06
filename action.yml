@@ -8,7 +8,7 @@ inputs:
     required: true
 
   WAKATIME_API_KEY:
-    description: 'WakaTime API Key'
+    description: 'WakaTime Personal OAuth Token from https://wakatime.com/oauth'
     required: true
 
   SECTION_NAME:

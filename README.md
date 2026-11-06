@@ -19,16 +19,18 @@
 ## Prep Work
 
 1. You Need To Update The Markdown File(`.md`) With 2 Comments. You Can Refer [Here](#update-your-readme) For Updating It.
-2. You'll Need A WakaTime API Key. You Can Get That From Your WakaTime Account Settings
+2. You'll Need A WakaTime Personal OAuth Token. You Can Get That Directly From [wakatime.com/oauth](https://wakatime.com/oauth).
     - You Can Refer [Here](#new-to-wakatime), If You're New To WakaTime.
+    > [!IMPORTANT]
+    > WakaTime API Keys are strictly write-only for editor plugins. To read stats for GitHub Actions, you must use a **Personal OAuth Token** from [wakatime.com/oauth](https://wakatime.com/oauth).
 3. You'll Need A GitHub API Token With `repo` And `user` Scope From [Here](https://github.com/settings/tokens) If You're Running The Action To Get Commit Metrics.
    - You Can Use [This](#profile-repository) Example To Work It Out.
 > [!NOTE]
 > Enabling The `repo` Scope Seems **DANGEROUS**, \
 > But This GitHub Action Only Accesses Your Commit Timestamps And The Number Of Lines Of Code Added Or Deleted In Repositories That You Contributed To.
-4. You Need To Save The WakaTime API Key And The GitHub API Token In The Repository Secrets. You Can Find That In The Settings Of Your Repository. \
+4. You Need To Save The WakaTime Personal OAuth Token And The GitHub API Token In The Repository Secrets. You Can Find That In The Settings Of Your Repository. \
   Be Sure To Save Those As The Following:
-    - WakaTime API Key As `WAKATIME_API_KEY=<Your WakaTime API Key>`
+    - WakaTime Personal OAuth Token As `WAKATIME_API_KEY=<Your WakaTime Personal OAuth Token>`
     - GitHub Personal Access Token (PAT) As `GH_TOKEN=<Your GitHub Access Token>`
 5. You Can Enable And Disable Feature Flags Based On Your Requirements.
 
@@ -52,9 +54,10 @@ These Lines Will Be Our Entry-Points For The Dev Metrics.
 WakaTime Gives You An Idea Of The Time You Really Spent On Coding. This Helps You Boost Your Productivity And Competitive Edge.
 
 - Head Over To <https://wakatime.com> And Create An Account.
-- Get Your WakaTime API Key From Your [Account Settings In WakaTime](https://wakatime.com/settings/account).
+- Get Your WakaTime API Key From Your [Account Settings In WakaTime](https://wakatime.com/settings/account) to configure editor plugins.
 - Install The [WakaTime Plugin](https://wakatime.com/plugins) In Your Favourite Editor / IDE.
-- Paste In Your API Key To Start The Analysis.
+- Paste In Your API Key To Start Tracking.
+- Next, Generate Your Personal OAuth Token At [wakatime.com/oauth](https://wakatime.com/oauth) and add it to your GitHub Repository Secrets as `WAKATIME_API_KEY`.
 
 ### Profile Repository
 

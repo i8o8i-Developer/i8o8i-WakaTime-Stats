@@ -97,10 +97,14 @@ GITHUB_API_QUERIES = {
 
 
 async def InitDownloadManager(user_login: str):
+    token = EM.WAKATIME_API_KEY.strip()
+    auth_header = token if token.lower().startswith("bearer ") else f"Bearer {token}"
+    waka_headers = {"Authorization": auth_header}
+
     await DownloadManager.LoadRemoteResources(
         linguist="https://cdn.jsdelivr.net/gh/github/linguist@master/lib/linguist/languages.yml",
-        waka_latest=f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={EM.WAKATIME_API_KEY}",
-        waka_all=f"https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={EM.WAKATIME_API_KEY}",
+        waka_latest=("https://wakatime.com/api/v1/users/current/stats/last_7_days", waka_headers),
+        waka_all=("https://wakatime.com/api/v1/users/current/all_time_since_today", waka_headers),
         github_stats=f"https://github-contributions.vercel.app/api/v1/{user_login}",
     )
 
@@ -110,9 +114,13 @@ class DownloadManager:
     _REMOTE_RESOURCES_CACHE: Dict[str, Union[Awaitable, Response]] = {}
 
     @staticmethod
-    async def LoadRemoteResources(**resources: str):
-        for key, url in resources.items():
-            DownloadManager._REMOTE_RESOURCES_CACHE[key] = await DownloadManager._client.get(url)
+    async def LoadRemoteResources(**resources: Union[str, Tuple[str, Optional[Dict[str, str]]]]):
+        for key, item in resources.items():
+            if isinstance(item, tuple):
+                url, headers = item
+                DownloadManager._REMOTE_RESOURCES_CACHE[key] = await DownloadManager._client.get(url, headers=headers)
+            else:
+                DownloadManager._REMOTE_RESOURCES_CACHE[key] = await DownloadManager._client.get(item)
 
     @staticmethod
     async def CloseRemoteResources():
@@ -141,6 +149,24 @@ class DownloadManager:
         elif res.status_code in {201, 202}:
             DBM.w(f"\tStatic Resource '{resource}' Returned Status {res.status_code}.")
             return None
+        elif res.status_code == 403:
+            try:
+                err_body = res.json()
+            except Exception:
+                err_body = res.text
+            if "API Keys are only for plugins" in str(err_body):
+                raise Exception(
+                    "WakaTime Authentication Failed (403 Forbidden): API Keys Are Only For Plugins.\n"
+                    "WakaTime Now Requires A Personal OAuth Token For Reading Statistics.\n"
+                    "1. Visit https://wakatime.com/oauth To Get/Generate Your Personal OAuth Token.\n"
+                    "2. Update The 'WAKATIME_API_KEY' Secret In Your GitHub Repository Settings."
+                )
+        elif res.status_code == 401 and "waka" in resource:
+            raise Exception(
+                "WakaTime Authentication Failed (401 Unauthorized).\n"
+                "Please Verify Your 'WAKATIME_API_KEY' Secret In GitHub Repository Settings.\n"
+                "Ensure You Are Using A Valid Personal OAuth Token From https://wakatime.com/oauth."
+            )
         raise Exception(f"Static Request To '{res.url}' Failed With Code {res.status_code}: {res.json()}")
 
     @staticmethod
