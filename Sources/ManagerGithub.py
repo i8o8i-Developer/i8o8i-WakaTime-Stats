@@ -33,16 +33,21 @@ class GitHubManager:
 
     @staticmethod
     def PrepareGithubEnv():
-        github = Github(EM.GH_TOKEN)
+        token = EM.GH_TOKEN.strip()
+        if not token:
+            raise Exception("Missing 'GH_TOKEN'. Please Provide A Valid GitHub Personal Access Token In Repository Secrets.")
+
+        github = Github(token)
         clone_path = "repo"
         GitHubManager.USER = github.get_user()
         rmtree(clone_path, ignore_errors=True)
 
         GitHubManager._REMOTE_NAME = environ.get("GITHUB_REPOSITORY", f"{GitHubManager.USER.login}/I8o8i-WakaTime-Stats")
-        GitHubManager._REPO_PATH = f"https://{EM.GH_TOKEN}@github.com/{GitHubManager._REMOTE_NAME}.git"
+        GitHubManager._REPO_PATH = f"https://x-access-token:{token}@github.com/{GitHubManager._REMOTE_NAME}.git"
 
         GitHubManager.REMOTE = github.get_repo(GitHubManager._REMOTE_NAME)
         GitHubManager.REPO = Repo.clone_from(GitHubManager._REPO_PATH, to_path=clone_path)
+        GitHubManager.REPO.remotes.origin.set_url(GitHubManager._REPO_PATH)
 
         if EM.COMMIT_SINGLE:
             GitHubManager.REPO.git.checkout(GitHubManager.Branch(EM.PULL_BRANCH_NAME))
@@ -101,17 +106,29 @@ class GitHubManager:
         actor = GitHubManager._get_author()
         DBM.i("Committing Files To Repo...")
         GitHubManager.REPO.index.commit(EM.COMMIT_MESSAGE, author=actor, committer=actor)
-        if EM.COMMIT_SINGLE:
-            DBM.i("Pushing Files To Repo As A Single Commit...")
-            refspec = f"{GitHubManager._SINGLE_COMMIT_BRANCH}:{GitHubManager.Branch(EM.PUSH_BRANCH_NAME)}"
-            headers = GitHubManager.REPO.remotes.origin.push(force=True, refspec=refspec)
-        else:
-            DBM.i("Pushing Files To Repo...")
-            headers = GitHubManager.REPO.remotes.origin.push()
-        if len(headers) == 0:
-            DBM.i(f"Repository Push Error : {headers}!")
-        else:
-            DBM.i("Repository Synchronized!")
+        try:
+            if EM.COMMIT_SINGLE:
+                DBM.i("Pushing Files To Repo As A Single Commit...")
+                refspec = f"{GitHubManager._SINGLE_COMMIT_BRANCH}:{GitHubManager.Branch(EM.PUSH_BRANCH_NAME)}"
+                headers = GitHubManager.REPO.remotes.origin.push(force=True, refspec=refspec)
+            else:
+                DBM.i("Pushing Files To Repo...")
+                headers = GitHubManager.REPO.remotes.origin.push()
+            if len(headers) == 0:
+                DBM.i(f"Repository Push Error : {headers}!")
+            else:
+                DBM.i("Repository Synchronized!")
+        except Exception as e:
+            err_msg = str(e)
+            if "could not read Username" in err_msg or "Authentication failed" in err_msg or "403" in err_msg:
+                raise Exception(
+                    "GitHub Authentication Failed During Git Push.\n"
+                    "This Usually Indicates That The 'GH_TOKEN' Secret Is Missing, Expired, Or Lacks 'repo' Write Scope.\n"
+                    "1. Verify That 'GH_TOKEN' Is Defined In GitHub Repository Secrets.\n"
+                    "2. Ensure The GitHub Personal Access Token Has 'repo' And 'user' Scopes Enabled And Has Not Expired.\n"
+                    f"Original Git Error: {err_msg}"
+                )
+            raise
 
     @staticmethod
     def SetGithubOutput(stats: str):

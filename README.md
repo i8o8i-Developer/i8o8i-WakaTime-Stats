@@ -12,26 +12,32 @@
 
 <p align="center">
     <a href="https://github.com/i8o8i-Developer/i8o8i-WakaTime-Stats/issues">Report Bug</a>
-     
+
     <a href="https://github.com/i8o8i-Developer/i8o8i-WakaTime-Stats/issues">Request Feature</a>
-  </p>
+
+</p>
 
 ## Prep Work
 
 1. You Need To Update The Markdown File(`.md`) With 2 Comments. You Can Refer [Here](#update-your-readme) For Updating It.
 2. You'll Need A WakaTime Personal OAuth Token. You Can Get That Directly From [wakatime.com/oauth](https://wakatime.com/oauth).
-    - You Can Refer [Here](#new-to-wakatime), If You're New To WakaTime.
-    > [!IMPORTANT]
-    > WakaTime API Keys are strictly write-only for editor plugins. To read stats for GitHub Actions, you must use a **Personal OAuth Token** from [wakatime.com/oauth](https://wakatime.com/oauth).
+
+   - You Can Refer [Here](#new-to-wakatime), If You're New To WakaTime.
+
+   > [!IMPORTANT]
+   > WakaTime API Keys Are Strictly Write-Only For Editor Plugins. To Read Stats For GitHub Actions, You Must Use A **Personal OAuth Token** From [wakatime.com/oauth](https://wakatime.com/oauth).
+   >
 3. You'll Need A GitHub API Token With `repo` And `user` Scope From [Here](https://github.com/settings/tokens) If You're Running The Action To Get Commit Metrics.
+
    - You Can Use [This](#profile-repository) Example To Work It Out.
+
 > [!NOTE]
-> Enabling The `repo` Scope Seems **DANGEROUS**, \
+> Enabling The `repo` Scope Seems **DANGEROUS**, 
 > But This GitHub Action Only Accesses Your Commit Timestamps And The Number Of Lines Of Code Added Or Deleted In Repositories That You Contributed To.
-4. You Need To Save The WakaTime Personal OAuth Token And The GitHub API Token In The Repository Secrets. You Can Find That In The Settings Of Your Repository. \
-  Be Sure To Save Those As The Following:
-    - WakaTime Personal OAuth Token As `WAKATIME_API_KEY=<Your WakaTime Personal OAuth Token>`
-    - GitHub Personal Access Token (PAT) As `GH_TOKEN=<Your GitHub Access Token>`
+
+4. You Need To Save The WakaTime Personal OAuth Token And The GitHub API Token In The Repository Secrets. You Can Find That In The Settings Of Your Repository. Be Sure To Save Those As The Following:
+   - WakaTime Personal OAuth Token As `WAKATIME_API_KEY=<Your WakaTime Personal OAuth Token>`
+   - GitHub Personal Access Token (PAT) As `GH_TOKEN=<Your GitHub Access Token>`
 5. You Can Enable And Disable Feature Flags Based On Your Requirements.
 
 This GitHub Action Can Be Set To Run At Any Time You Want Using `cron`. See [Crontab.guru](https://crontab.guru/) And [This](https://crontab.cronhub.io/) Website To Generate `cron` Expressions.
@@ -53,7 +59,7 @@ These Lines Will Be Our Entry-Points For The Dev Metrics.
 
 WakaTime Gives You An Idea Of The Time You Really Spent On Coding. This Helps You Boost Your Productivity And Competitive Edge.
 
-- Head Over To <https://wakatime.com> And Create An Account.
+- Head Over To [https://wakatime.com](https://wakatime.com) And Create An Account.
 - Get Your WakaTime API Key From Your [Account Settings In WakaTime](https://wakatime.com/settings/account) to configure editor plugins.
 - Install The [WakaTime Plugin](https://wakatime.com/plugins) In Your Favourite Editor / IDE.
 - Paste In Your API Key To Start Tracking.
@@ -83,6 +89,7 @@ jobs:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
+
 - Now You Can Commit And Wait For It To Run Automatically, Or You Can Also Trigger To Run It To See The Result Now. Just Go To The `Actions` In Your Repo, Select Your `Profile Readme Development Stats` Workflow And Click `Run workflow`. Now Wait For A Minute Or Two And You Will See Your Changes.
 
 ## Extras
@@ -120,19 +127,20 @@ The `UPDATED_DATE_FORMAT` Flag Can Be Set To Put The Updated Date Into A Format.
 
 The `SHOW_LINES_OF_CODE` Flag Can Be Set To `True` To Show The Number Of Lines Of Code Writen Till Date.
 
-![Lines Of Code](https://img.shields.io/badge/From%20Hello%20World%20I%20Have%20Written-1.3%20Million%20Lines%20Of%20Code-blue)
+![Lines Of Code](<https://img.shields.io/badge/From%20Hello%20World%20I%20Have%20Written-1.3%20Million%20Lines%20Of%20Code-blue>)
 
 The `SHOW_TOTAL_CODE_TIME` Flag Can Be Set To `False` To Hide *Code Time*.
 
-![Code Time](http://img.shields.io/badge/Code%20Time-1%2C438%20hrs%2054%20mins-blue)
+![Code Time](<http://img.shields.io/badge/Code%20Time-1%2C438%20hrs%2054%20mins-blue>)
 
 The `SHOW_PROFILE_VIEWS` Flag Can Be Set To `False` To Hide **Profile Views**
 
-![Profile Views](http://img.shields.io/badge/Profile%20Views-2189-blue)
+![Profile Views](<http://img.shields.io/badge/Profile%20Views-2189-blue>)
 
 The `SHOW_COMMIT` Flag Can Be Set To `False` To Hide The Commit Stats.
 
-**I Am An Early Birds** 
+**I Am An Early Birds**
+
 ```text
 🌞 Morning    95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55% 
 🌆 Daytime    78 commits     ██████░░░░░░░░░░░░░░░░░░░   25.08% 
@@ -143,7 +151,7 @@ The `SHOW_COMMIT` Flag Can Be Set To `False` To Hide The Commit Stats.
 
 The `SHOW_DAYS_OF_WEEK` Flag Can Be Set To `False` To Hide The Commits Made On The Different Days Of The Week.
 
-📅 **I Am Most Productive On Sundays** 
+📅 **I Am Most Productive On Sundays**
 
 ```text
 Monday       50 commits     ███░░░░░░░░░░░░░░░░░░░░░░   13.19% 
@@ -166,7 +174,6 @@ Markdown                 1 hr 9 mins         ███░░░░░░░░�
 Python                   22 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   4.32%
 XML                      8 mins              ░░░░░░░░░░░░░░░░░░░░░░░░░   1.62%
 ```
-
 
 The `SHOW_OS` Flag Can Be Set To `False` To Hide Your OS Details.
 
@@ -200,6 +207,7 @@ WebStorm                 6 hrs 47 mins       ███████████�
 PhpStorm                 1 hr 35 mins        ████░░░░░░░░░░░░░░░░░░░░░   18.07%
 PyCharm                  23 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   4.49%
 ```
+
 ```
 
 The `SHOW_LANGUAGE_PER_REPO` Flag Can Be Set To `False` To Hide The Number Of Repositories In Different Programming Languages And Frameworks.
@@ -218,35 +226,35 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 ```
 
 The `SHOW_SHORT_INFO` Flag Can Be Set To `False` To Hide The Short Fun Fact Info Of A User.
+
 > [!NOTE]
 > This Section Requires A Personal Access Token (PAT) With The `user` Scope, Otherwise The Data Shown Here Will Be Incorrect.
 
-**🐱 {Username} GitHub Data** 
+**🐱 {Username} GitHub Data**
 
 > 🏆 Contributions Made In The Year: 433 In 2020
- > 
+>
 > 📦 Used In GitHub's Storage: 292.3 kB
- > 
+>
 > 💼 i8o8i Solutions Is Open To Hire
- > 
+>
 > 📜 Public Repositories: 25
- > 
-> 🔑 Private Repositories: 15 
+>
+> 🔑 Private Repositories: 15
 
 The `SHOW_LOC_CHART` Flag Can Be Set To `False` To Hide The Lines Of Code Written In Different Quarters Of Different Years.
 
 The `IGNORED_REPOS` Flag Can Be Set To `"waka-readme-stats, my-first-repo"` (Just An Example) To Ignore Some Repos You Dont Want To Be Counted.
 
 The `SYMBOL_VERSION` Flag Can Be Set For The Symbol For The Progress Bar (Default: `1`).
+
 | Version | Done Block | Empty Block |
-|-------- | ---------- | ----------- |
-|    1    |      █     |       ░     |
-|    2    |      ▮     |       ▯     |
-|    3    |      ◆     |       ◇     |
+| ------- | ---------- | ----------- |
+| 1       | █         | ░          |
+| 2       | ▮         | ▯          |
+| 3       | ◆         | ◇          |
 
 The `DEBUG_LOGGING` Flag Can Be Set To Increase The GitHub Action's Output Verbosity, By Default Equals Internal Runner Debug Property
-
-
 
 ## ❤️ Support The Project
 
@@ -269,7 +277,6 @@ Thanks! 💕
 
 Contributions Are Welcome! Please Share Any Features, And Add Unit Tests! Use The Pull Request And Issue Systems To Contribute.
 
-
 Made With ❤️ And Python 🐍.
 
 ## License
@@ -278,11 +285,10 @@ This Project Is Licensed Under The MIT License. See The [LICENSE](LICENSE) File 
 
 # Inspired From
 
-> [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists) <br/>
+> [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists) 
 > [anmol098/waka-readme-stats](https://github.com/anmol098/waka-readme-stats)
 
 ### This Project Needs A **Star**  From You .
-
 
 ## StarGazers Over Time
 
